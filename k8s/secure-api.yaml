@@ -1,0 +1,58 @@
+# Replace the registry hostname and immutable digest before applying.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: secure-api
+  namespace: production
+  labels:
+    app.kubernetes.io/name: secure-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: secure-api
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: secure-api
+    spec:
+      containers:
+        - name: secure-api
+          image: YOUR_JFROG_DOCKER_REGISTRY/foma-docker-local/secure-api@sha256:REPLACE_WITH_VERIFIED_DIGEST
+          ports:
+            - name: http
+              containerPort: 5000
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: secure-api
+  namespace: production
+spec:
+  selector:
+    app.kubernetes.io/name: secure-api
+  ports:
+    - port: 80
+      targetPort: 5000
+  type: ClusterIP
