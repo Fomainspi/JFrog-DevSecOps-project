@@ -67,6 +67,13 @@ Expected API response:
 6. [Create an Xray policy and watch](docs/06-policy-and-watch.md)
 7. [Kubernetes deployment baseline](docs/07-kubernetes-deployment.md)
 8. [Evidence checklist and next steps](docs/08-evidence-and-next-steps.md)
+9. [DevOps / DevSecOps technical interview handbook](docs/09-devops-devsecops-interview-handbook.md)
+
+## Interview preparation
+
+A consolidated interview handbook covering JFrog, Nexus, software supply-chain security, Jenkins, GitHub Actions, AWS, Azure, Terraform, Docker, Kubernetes, Linux, troubleshooting scenarios, practical exercises and mock interview questions is available here:
+
+[Open the DevOps / DevSecOps Technical Interview Preparation Handbook](docs/09-devops-devsecops-interview-handbook.md).
 
 ## Security design decisions
 
